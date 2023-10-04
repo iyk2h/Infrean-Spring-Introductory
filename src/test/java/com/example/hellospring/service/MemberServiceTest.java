@@ -3,13 +3,30 @@ package com.example.hellospring.service;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.example.hellospring.domain.Member;
+import com.example.hellospring.repository.MemberRepository;
+import com.example.hellospring.repository.MemoryMemberRepository;
 import java.util.Optional;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 class MemberServiceTest {
 
-    MemberService memberService = new MemberService();
+    MemberService memberService;
+    MemoryMemberRepository memberRepository;
+
+    @BeforeEach
+    public void beforeEach() {
+        memberRepository = new MemoryMemberRepository();
+        memberService = new MemberService(memberRepository);
+    }
+
+    @AfterEach
+    void afterEach() {
+        memberRepository.clearStore();
+    }
 
     @Test
     void 회원가입_정상() {

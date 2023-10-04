@@ -7,7 +7,9 @@ import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.stereotype.Repository;
 
+@Repository
 class MemoryMemberRepositoryTest {
 
     MemoryMemberRepository repository = new MemoryMemberRepository();
@@ -58,6 +60,10 @@ class MemoryMemberRepositoryTest {
         repository.save(member2);
 
         List<Member> result = repository.findAll();
+
+        for( Member m : result) {
+            System.out.println(m.getName());
+        }
 
         assertThat(result.size()).isEqualTo(2);
     }
